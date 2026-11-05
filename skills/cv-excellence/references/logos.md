@@ -17,7 +17,7 @@ secteurs et certains cabinets attendent un document strictement typographique.
 sans condition de réutilisation.
 
 ```bash
-python3 scripts/logos.py python docker terraform postgresql --dossier src/logos
+python3 <compétence>/scripts/logos.py python docker terraform postgresql --dossier src/logos
 ```
 
 Les identifiants se cherchent sur simpleicons.org : minuscules, sans espace

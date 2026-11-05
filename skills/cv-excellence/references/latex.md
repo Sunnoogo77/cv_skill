@@ -17,10 +17,10 @@ rédaction reste valable quel que soit le format de sortie.
 
 ```
 mon-cv/
-├── build.sh              copié depuis assets/
+├── build.sh              copié depuis <compétence>/assets/
 └── src/
-    ├── preambule.tex     copié depuis assets/
-    ├── cv.tex            copié depuis assets/, puis rempli
+    ├── preambule.tex     copié depuis <compétence>/assets/
+    ├── cv.tex            copié depuis <compétence>/assets/, puis rempli
     ├── photo.jpg         si photo
     └── logos/            fichiers PNG
 ```
@@ -158,7 +158,7 @@ tenir en une page. Le dire à la personne plutôt que de meubler.
 ## Contrôler avant de rendre
 
 ```bash
-python3 scripts/verifier.py Poste/CV_NOM_poste.pdf --liens
+python3 <compétence>/scripts/verifier.py Poste/CV_NOM_poste.pdf --liens
 ```
 
 Puis **ouvrir le PDF et le regarder**. Le script ne voit pas qu'un logo est

@@ -176,6 +176,12 @@ balayant. Un paragraphe à moitié gras ne met plus rien en valeur.
 
 ### 6. Produire le document
 
+> Les chemins `assets/`, `scripts/` et `references/` sont relatifs au dossier
+> de la compétence, pas au dossier de travail. Le dossier de travail est celui
+> où le CV se construit. Repérer une fois le chemin de la compétence — c'est
+> celui du `SKILL.md` en cours de lecture — et l'utiliser tel quel pour appeler
+> les scripts et copier le gabarit.
+
 Le gabarit est dans `assets/` : `preambule.tex` porte la mise en page et ne
 contient aucune donnée personnelle hormis quatre commandes d'identité en tête de
 fichier ; `cv.tex` est le squelette à remplir ; `build.sh` produit les variantes.
@@ -204,7 +210,7 @@ Certains défauts ne se voient pas à l'écran et se voient très bien chez le
 recruteur. Lancer :
 
 ```bash
-python3 scripts/verifier.py chemin/vers/CV.pdf --liens
+python3 <compétence>/scripts/verifier.py chemin/vers/CV.pdf --liens
 ```
 
 Le script vérifie que le texte est réellement extractible — un CV exporté en
