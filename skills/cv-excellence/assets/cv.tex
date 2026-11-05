@@ -1,0 +1,128 @@
+% ==========================================================================
+% Squelette d'un CV a une colonne, plusieurs variantes depuis une source.
+%
+% Le candidat ci-dessous est fictif. Il sert a montrer la forme attendue :
+% remplacer son contenu, pas sa structure.
+%
+% Les variantes se posent par des drapeaux. Ici deux exemples :
+%   \ifposte   le CV oriente vers un poste en entreprise
+%   \ifstage   le CV oriente vers un stage
+% Ajouter ou retirer des drapeaux selon les candidatures reellement visees.
+% build.sh les bascule et VERIFIE qu'ils ont bascule : un sed qui echoue en
+% silence produit sinon un PDF qui compile et qui ment.
+% ==========================================================================
+\documentclass[10pt,a4paper]{article}
+
+\newif\ifphoto
+\phototrue
+\newif\ifposte
+\postetrue
+\newif\ifstage
+\stagefalse
+\newif\ifen
+\enfalse
+
+\input{preambule.tex}
+
+\begin{document}
+
+% === EN-TETE ==============================================================
+% Le titre est le poste vise. Pas « Etudiant en informatique », pas
+% « A la recherche d'un emploi » : le recruteur doit lire en premier le nom
+% du poste qu'il a ouvert.
+\ifstage
+\entete{Analyste de données, orientation santé publique}
+       {Statistique appliquée \quad\textbullet\quad Python et R \quad\textbullet\quad Données de cohorte \quad\textbullet\quad Restitution aux équipes}
+       {\textbf{Recherche un stage de six mois} \quad\textbullet\quad mars – août 2027 \quad\textbullet\quad français, anglais B2}
+\else
+\entete{Analyste de données, orientation santé publique}
+       {Statistique appliquée \quad\textbullet\quad Python et R \quad\textbullet\quad Données de cohorte \quad\textbullet\quad Restitution aux équipes}
+       {\textbf{Disponible en CDI} \quad\textbullet\quad préavis d'un mois \quad\textbullet\quad français, anglais B2}
+\fi
+
+% === PROFIL ===============================================================
+% Cinq a huit lignes, pas davantage. On y repond a trois questions : qui je
+% suis professionnellement, ce que je sais faire de verifiable, ce que je
+% cherche. Les termes en gras sont ceux qu'un recruteur cherche des yeux.
+{\small Diplômée d'un master de santé publique, je travaille les \textbf{données de cohorte} :
+nettoyage, analyse et restitution. Au cours des deux dernières années j'ai traité
+\textbf{quatre bases de plus de dix mille lignes}, automatisé leur contrôle de qualité en
+\textbf{Python} et produit les tableaux de bord utilisés en réunion de service. Je cherche un poste
+où l'analyse sert une décision, et non un rapport de plus.\par}
+
+% === EXPERIENCE ===========================================================
+\section{Experience professionnelle}
+
+% Modele d'une entree : objectif, moyens, resultat.
+% Chaque puce porte au moins un element verifiable : un chiffre, un outil, un
+% livrable. Une puce sans rien de verifiable est une puce a reecrire.
+\poste{Chargée d'études statistiques \quad\marque{exemple.png}{0.40cm}}
+      {Agence régionale de santé \textbullet\ contrat de projet}{janvier 2025 – aujourd'hui}{Lyon}
+\begin{faits}
+\item Suivi d'une cohorte de \textbf{3\,200 patients} sur dix-huit mois : plan d'analyse
+construit avec les médecins, appariement de \textbf{quatre sources} auparavant rapprochées à la
+main, \textbf{bilan mensuel produit en deux jours contre onze}.
+\item Contrôle de qualité automatisé en \textbf{Python} (pandas, Great Expectations) :
+\textbf{trente-deux règles} de cohérence, rapport d'anomalies envoyé chaque lundi aux équipes de
+saisie. \textbf{Lignes rejetées ramenées de 7,4 \% à 1,1 \%} en six mois.
+\item Tableaux de bord sous \textbf{R Shiny}, utilisés en réunion de service, et formation de
+\textbf{six personnes} à leur lecture. Repris par le service sans mon intervention depuis
+septembre.
+\end{faits}
+
+\poste{Stagiaire, unité d'épidémiologie \quad\marque{exemple.png}{0.40cm}}
+      {Centre hospitalier universitaire}{avril – septembre 2024}{Grenoble}
+\begin{faits}
+\item Analyse rétrospective de \textbf{870 dossiers} anonymisés, sous la responsabilité d'un
+praticien hospitalier. Mémoire soutenu, \textbf{note 17/20}, résultats présentés en staff.
+\end{faits}
+
+% === PROJETS ==============================================================
+% Les projets personnels comptent, a une condition : qu'ils soient decrits
+% comme des realisations, avec leur etat reel. Un projet en cours se dit en
+% cours. Un depot vide ne se cite pas.
+\section{Projets}
+
+\poste{Tableau de bord ouvert des urgences régionales \quad\marque{exemple.png}{0.40cm}}
+      {Projet personnel \textbullet\ \textbf{en ligne} \textbullet\ \href{https://exemple.fr}{exemple.fr}}{2025}{}
+\begin{faits}
+\item Collecte hebdomadaire des données publiques d'affluence, \textbf{Python} et
+\textbf{PostgreSQL}, restitution cartographique. \textbf{Quatre-vingts visiteurs mensuels},
+code ouvert et documenté.
+\end{faits}
+
+% === COMPETENCES ==========================================================
+% Une ligne par domaine, l'intitule ouvre la ligne. Pas de barres de niveau :
+% personne ne sait ce que valent quatre etoiles sur cinq, et le recruteur le
+% sait aussi.
+\section{Competences}
+
+\comp{Analyse}{Statistique descriptive et inférentielle, modèles de survie, appariement de sources, plans d'analyse}
+\comp{Outils}{Python (pandas, scikit-learn), R (tidyverse, Shiny), SQL, Git}
+\comp{Données de santé}{CIM-10, données de cohorte, anonymisation, RGPD appliqué à la recherche}
+\comp{Langues}{Français, langue maternelle \quad\textbar\quad Anglais B2}
+
+% === CERTIFICATIONS =======================================================
+% Deux groupes separes, et jamais melanges : ce qui est obtenu, ce qui ne
+% l'est pas. Une certification en preparation ne porte une date que si
+% l'inscription est confirmee.
+\section{Certifications}
+
+\comp{Obtenues}{\textbf{Diplôme universitaire de statistique appliquée}, 2024 \quad\textbar\quad \textbf{Bonnes pratiques cliniques}, 2023}
+\comp{En préparation}{\textbf{Certificat en épidémiologie de terrain}}
+
+% === FORMATION ============================================================
+\section{Formation}
+
+\form{exemple.png}{\textbf{Master de santé publique}, parcours méthodes quantitatives \textbullet\ {\color{accent}Université de Lyon}, 2022 – 2024}
+\form{exemple.png}{\textbf{Licence de mathématiques appliquées} \textbullet\ {\color{accent}Université Grenoble Alpes}, 2019 – 2022}
+
+% === PIED =================================================================
+% Facultatif. Utile quand il dit quelque chose du candidat ; inutile quand il
+% recopie « lecture, voyages, cinema ».
+\vspace{0.2em}
+{\color{trait}\hrule height 0.9pt}
+\vspace{0.3em}
+{\footnotesize\color{gris}\textbf{Centres d'intérêt} \quad Course de fond, deux marathons. Bénévole au secours populaire, permanence hebdomadaire.\par}
+
+\end{document}

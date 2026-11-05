@@ -1,0 +1,12 @@
+{
+  "name": "cv-skill",
+  "description": "Compétence de rédaction de CV pour Claude Code.",
+  "owner": { "name": "Sunnoogo77" },
+  "plugins": [
+    {
+      "name": "cv",
+      "source": "./",
+      "description": "Rédige, refond ou corrige un CV de bout en bout, du questionnaire au PDF."
+    }
+  ]
+}

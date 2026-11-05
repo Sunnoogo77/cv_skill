@@ -1,0 +1,8 @@
+{
+  "name": "cv",
+  "description": "Rédaction de CV : entretien détaillé, mise en valeur honnête, production d'un PDF LaTeX à une colonne avec logos et variantes.",
+  "version": "1.0.0",
+  "author": { "name": "Sunnoogo77" },
+  "license": "MIT",
+  "keywords": ["cv", "resume", "candidature", "latex", "recrutement"]
+}

@@ -1,0 +1,173 @@
+% ==========================================================================
+% Preambule commun a toutes les variantes d'un meme CV.
+% Mis en facteur pour qu'une correction de mise en page vaille partout :
+% c'est ce qui permet de produire six ou dix PDF sans les diverger.
+%
+% Drapeaux attendus, poses par le fichier appelant AVANT \input :
+%   \ifphoto   photo dans l'en-tete
+%   \ifen      corps en anglais (change la langue de babel et la cesure)
+%   plus les drapeaux de variante propres au candidat (\ifalt, \ifstage...)
+%
+% Identite : les quatre commandes ci-dessous sont les SEULES a modifier pour
+% changer de candidat. Rien d'autre dans ce fichier ne porte de donnee
+% personnelle.
+% ==========================================================================
+
+\newcommand{\nomcandidat}{Prenom NOM}
+\newcommand{\villecandidat}{Ville, Region}
+\newcommand{\telcandidat}{+33 0 00 00 00 00}
+\newcommand{\telcandidaturl}{+33000000000}
+\newcommand{\mailcandidat}{prenom.nom@exemple.fr}
+% Laisser vide une ligne de profil pour la faire disparaitre de l'en-tete.
+\newcommand{\githubcandidat}{https://github.com/identifiant}
+\newcommand{\linkedincandidat}{https://www.linkedin.com/in/identifiant/}
+% Mots-cles du PDF : ils servent la recherche documentaire cote recruteur.
+% Ce ne sont pas des mots-cles caches dans la page, ce qui serait une fraude ;
+% ce sont les metadonnees normales du fichier.
+\newcommand{\motsclescandidat}{}
+
+\ifen
+  \usepackage[english]{babel}
+\else
+  \usepackage[french]{babel}
+\fi
+\usepackage{fontspec}
+
+% --- polices ---------------------------------------------------------------
+% Latin Modern est livre avec toute distribution TeX, donc le CV compile
+% partout sans installation. Pour une identite plus contemporaine, remplacer
+% par une police installee sur la machine, par exemple :
+%   \setmainfont{Source Serif 4} et \newfontfamily\titref{Source Sans 3}
+% Garder une serif pour le corps et une sans serif pour les titres : c'est ce
+% contraste qui donne au document son air de piece ecrite et non de gabarit.
+% Ligatures = NoCommon : le texte reste extractible caractere par caractere,
+% ce qui compte pour les logiciels qui liront le PDF.
+\setmainfont{lmroman10-regular.otf}[
+  BoldFont       = lmroman10-bold.otf,
+  ItalicFont     = lmroman10-italic.otf,
+  BoldItalicFont = lmroman10-bolditalic.otf,
+  Ligatures      = NoCommon
+]
+\newfontfamily\titref{lmsans10-regular.otf}[BoldFont=lmsans10-bold.otf,
+                                            ItalicFont=lmsans10-oblique.otf,
+                                            Ligatures=NoCommon]
+
+\usepackage{microtype}
+\linespread{1.04}
+\usepackage[a4paper,top=1.05cm,bottom=1.0cm,left=1.35cm,right=1.35cm]{geometry}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{fontawesome5}
+\usepackage{needspace}
+
+% --- couleurs --------------------------------------------------------------
+% Une seule couleur d'accent, declinee. Deux couleurs vives sur un CV se
+% disputent l'attention et aucune ne la gagne.
+\definecolor{encre}{HTML}{15202B}   % le texte courant, presque noir
+\definecolor{accent}{HTML}{1F4E79}  % titres de section et employeurs
+\definecolor{vif}{HTML}{1D68FF}     % liens et puces, uniquement
+\definecolor{gris}{HTML}{5B6B84}    % dates, lieux, mentions secondaires
+\definecolor{trait}{HTML}{D8DEE8}   % filets
+
+\hypersetup{colorlinks=true, urlcolor=vif, linkcolor=vif,
+            pdfauthor={\nomcandidat},
+            pdftitle={\nomcandidat},
+            pdfkeywords={\motsclescandidat}}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\color{encre}
+
+% --- logos -----------------------------------------------------------------
+% \marque{fichier}{hauteur} : logo en ligne, dans un intitule de poste ou de
+%                             projet. La hauteur se regle logo par logo, parce
+%                             qu'un logo large et un logo carre n'ont pas la
+%                             meme presence a hauteur egale.
+% \ecusson{fichier}         : logo d'etablissement, dans une boite fixe de
+%                             1,6 cm sur 0,72 cm, rapport d'image conserve.
+%                             La boite fixe est ce qui aligne la colonne des
+%                             formations quelles que soient les proportions.
+\newcommand{\marque}[2]{\raisebox{-0.26\height}{\includegraphics[height=#2]{logos/#1}}}
+\newcommand{\ecusson}[1]{%
+  \makebox[1.65cm][l]{\includegraphics[width=1.6cm,height=0.72cm,keepaspectratio]{logos/#1}}}
+
+% --- structure -------------------------------------------------------------
+% \Needspace evite qu'un titre de section ou un intitule de poste reste seul
+% en bas de page, separe de ce qu'il annonce.
+\renewcommand{\section}[1]{%
+  \Needspace{3\baselineskip}
+  \vspace{0.42em}
+  {\titref\bfseries\footnotesize\color{accent}\MakeUppercase{#1}}\par
+  \vspace{0.14em}
+  {\color{trait}\hrule height 0.9pt}
+  \vspace{0.34em}
+}
+
+% \poste{intitule}{employeur}{dates}{lieu}
+\newcommand{\poste}[4]{%
+  \Needspace{4\baselineskip}
+  {\titref\bfseries\small #1}\hfill{\titref\footnotesize\color{gris} #3}\par
+  {\titref\small\color{accent} #2}\hfill{\titref\footnotesize\color{gris} #4}\par
+  \vspace{0.1em}
+}
+
+% Les faits d'une experience. Pas « missions », pas « taches » : des faits.
+\newenvironment{faits}{%
+  \begin{itemize}[leftmargin=1.0em, itemsep=0.1em, topsep=0.06em, parsep=0pt,
+                  label={\color{vif}\scriptsize\raisebox{0.14em}{\textbullet}}]
+  \small
+}{\end{itemize}\vspace{0.2em}}
+
+% \comp{intitule}{contenu} : une seule colonne, l'intitule ouvre la ligne.
+% Un tableau a deux colonnes serait plus joli et moins lisible par les
+% logiciels d'analyse : l'ordre des mots y devient imprevisible.
+\newcommand{\comp}[2]{%
+  {\footnotesize{\titref\bfseries\color{accent}#1 :} #2\par}\vspace{0.2em}
+}
+
+% \form{logo}{texte} : une ligne de formation, logo et texte centres.
+\newcommand{\form}[2]{%
+  \noindent
+  \begin{minipage}[c]{0.11\textwidth}\raggedright\ecusson{#1}\end{minipage}%
+  \begin{minipage}[c]{0.88\textwidth}\raggedright\footnotesize #2\end{minipage}\par
+  \vspace{0.52em}
+}
+
+% \entete{titre}{sous-titre}{ligne de disponibilite}
+% Le titre est le poste vise, pas le diplome. Le sous-titre porte trois ou
+% quatre domaines, separes par des puces : c'est la ligne que l'oeil lit en
+% deuxieme et elle doit situer le profil sans phrase.
+\newcommand{\entete}[3]{%
+\begin{minipage}[t]{\ifphoto 0.82\textwidth \else \textwidth \fi}
+\vspace{0pt}
+{\titref\fontsize{21}{23}\selectfont\bfseries \nomcandidat}\par
+\vspace{0.14em}
+{\titref\small\color{accent}\bfseries #1}\par
+{\titref\footnotesize\color{gris}#2}\par
+\vspace{0.38em}
+{\footnotesize
+\faMapMarker*\ \villecandidat \quad
+\faPhone*\ \href{tel:\telcandidaturl}{\telcandidat} \quad
+\faEnvelope\ \href{mailto:\mailcandidat}{\mailcandidat} \quad
+\href{\githubcandidat}{\faGithub\ GitHub} \quad
+\href{\linkedincandidat}{\faLinkedin\ LinkedIn}\par
+\vspace{0.08em}
+\faCheckCircle\ {\color{gris}#3}\par}
+\end{minipage}%
+\ifphoto
+\hfill
+\begin{minipage}[t]{0.16\textwidth}
+\vspace{0pt}\raggedleft
+\begin{tikzpicture}
+  \clip (0,0) rectangle ++(2.15,2.3);
+  \node[inner sep=0] at (1.075,1.15) {\includegraphics[width=2.15cm]{photo.jpg}};
+\end{tikzpicture}
+\end{minipage}
+\fi
+\vspace{0.34em}
+{\color{trait}\hrule height 1.1pt}
+\vspace{0.38em}
+}
