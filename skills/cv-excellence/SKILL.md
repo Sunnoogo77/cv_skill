@@ -7,11 +7,11 @@ description: >
   contrôle automatique du fichier produit. Adapte la forme et le vocabulaire au
   secteur (tech, finance, santé, BTP, droit, marketing, académique, commerce,
   artisanat) et au pays. Déclenche cette compétence dès qu'il est question de
-  CV, de resume, de curriculum vitae, de candidature, de lettre de motivation
-  adossée à un CV, de « je cherche un stage / une alternance / un poste », de
-  « mon CV ne donne rien », de relecture ou de mise en page de CV, de LinkedIn à
-  transposer en CV, même quand la personne demande seulement un petit coup d'œil
-  ou une correction rapide : un CV faible se corrige rarement par une retouche.
+  CV, de resume, de curriculum vitae, de candidature, de « je cherche un stage,
+  une alternance ou un poste », de « mon CV ne donne rien », de relecture ou de
+  mise en page de CV, de profil LinkedIn à transposer en CV, même quand la
+  personne demande seulement un petit coup d'œil ou une correction rapide : un
+  CV faible se corrige rarement par une retouche.
 ---
 
 # Rédiger un CV qui donne envie de recevoir la personne
